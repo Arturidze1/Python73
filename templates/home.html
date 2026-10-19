@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Home — Ultra Barber Shop{% endblock %}
+
+{% block content %}
+
+<section class="hero-section text-center text-white mb-5" style="margin-top: -24px; margin-left: -12px; margin-right: -12px; padding: 0 15px;">
+    <div class="container position-relative" style="z-index: 2;">
+
+        <i class="bi bi-scissors display-1 text-gold animate-up mb-3 d-block"></i>
+
+        <h1 class="font-barber text-white animate-up delay-1" style="font-size: 6rem; line-height: 1;">
+            VIDUS<span class="text-gold">HAIR</span>
+        </h1>
+
+        <div class="animate-up delay-2 d-flex justify-content-center align-items-center gap-3 my-4">
+            <hr class="border-gold w-25 opacity-50" style="border-color: var(--gold);">
+            <i class="bi bi-razor text-gold fs-3"></i>
+            <hr class="border-gold w-25 opacity-50" style="border-color: var(--gold);">
+        </div>
+
+        <p class="fs-5 text-white-50 mt-4 mx-auto animate-up delay-2" style="max-width: 700px; line-height: 1.6; font-weight: 300;">
+            Не просто стрижка. Это стиль жизни.
+            Опытные мастера, премиальная косметика и атмосфера, в которую хочется возвращаться.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 mt-5 animate-up delay-3">
+            <a href="{% url 'new_booking' %}" class="btn btn-gold btn-lg px-5 py-3 font-barber fs-4 pulse">
+                Забронировать
+            </a>
+            <a href="{% url 'services' %}" class="btn btn-outline-gold btn-lg px-4 py-3 font-barber fs-4">
+                Услуги
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<div class="container py-5">
+    <h2 class="font-barber text-center text-gold mb-5" style="font-size: 3rem;">ПОЧЕМУ МЫ?</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="service-card text-center h-100">
+                <i class="bi bi-scissors service-icon display-4 mb-3 d-block"></i>
+                <h4 class="font-barber text-white">ОПЫТНЫЕ МАСТЕРА</h4>
+                <p class="text-white-50 small">Стаж от 5 лет и постоянное обучение современным техникам</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card text-center h-100">
+                <i class="bi bi-droplet service-icon display-4 mb-3 d-block"></i>
+                <h4 class="font-barber text-white">ПРЕМИУМ КОСМЕТИКА</h4>
+                <p class="text-white-50 small">Используем только проверенные бренды мирового уровня</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card text-center h-100">
+                <i class="bi bi-cup-hot service-icon display-4 mb-3 d-block"></i>
+                <h4 class="font-barber text-white">АТМОСФЕРА</h4>
+                <p class="text-white-50 small">Кофе, виски и правильная музыка — всё для вас</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 my-5">
+    <div class="p-5 rounded-4 text-center" style="background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid #333;">
+        <i class="bi bi-clock-history display-4 text-gold mb-3 d-block"></i>
+        <h2 class="font-barber text-white mb-3" style="font-size: 2.5rem;">ГОТОВЫ К ПЕРЕМЕНАМ?</h2>
+        <p class="text-white-50 mb-4">Запишитесь онлайн за 30 секунд. Без звонков и ожидания.</p>
+        <a href="{% url 'new_booking' %}" class="btn btn-gold px-5 py-3 font-barber fs-4">
+            <i class="bi bi-calendar-check me-2"></i>ЗАПИСАТЬСЯ
+        </a>
+    </div>
+</div>
+
+{% endblock %}

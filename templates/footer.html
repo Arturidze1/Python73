@@ -1,0 +1,87 @@
+<footer class="mt-5 pt-5 pb-3" style="background: #0a0a0a; border-top: 2px solid var(--gold);">
+    <div class="container">
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <a class="text-decoration-none text-gold font-barber fs-3 d-flex align-items-center mb-3" href="{% url 'home' %}">
+                    <i class="bi bi-scissors me-2"></i>BARBER SHOP
+                </a>
+                <p class="text-white-50 small lh-lg">
+                    Не просто стрижка. Это стиль жизни.
+                    Опытные мастера, премиальная косметика и атмосфера, в которую хочется возвращаться.
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="font-barber text-white mb-3">НАВИГАЦИЯ</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none hover-gold transition-all">
+                            <i class="bi bi-chevron-right text-gold small me-1"></i> Главная
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'services' %}" class="text-white-50 text-decoration-none hover-gold transition-all">
+                            <i class="bi bi-chevron-right text-gold small me-1"></i> Услуги
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'specialists' %}" class="text-white-50 text-decoration-none hover-gold transition-all">
+                            <i class="bi bi-chevron-right text-gold small me-1"></i> Мастера
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'bookings' %}" class="text-white-50 text-decoration-none hover-gold transition-all">
+                            <i class="bi bi-chevron-right text-gold small me-1"></i> Мои записи
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="font-barber text-white mb-3">КОНТАКТЫ</h5>
+                <ul class="list-unstyled text-white-50 small">
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-geo-alt text-gold fs-5 me-3"></i>
+                        г. Минск, ул. Данилы Сердича, дом 18, корпус 2
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-telephone text-gold fs-5 me-3"></i>
+                        +375 (33) 678-40-51
+                    </li>
+                    <li class="mb-3 d-flex align-items-center">
+                        <i class="bi bi-clock text-gold fs-5 me-3"></i>
+                        Ежедневно с 10:00 до 22:00
+                    </li>
+                </ul>
+
+                <div class="d-flex gap-3 mt-4">
+                    <a href="https://www.instagram.com/lil_vidus?obrf=MXFmeWt4aWk5amxoMA%3D%3D&utm_source=qr" class="text-white-50 fs-4 hover-gold transition-all"><i class="bi bi-instagram"></i></a>
+                    <a href="https://t.me/j_malone" class="text-white-50 fs-4 hover-gold transition-all"><i class="bi bi-telegram"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="border-secondary opacity-25 my-4">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-white-50 small">
+            <p class="mb-2 mb-md-0">
+                © {% now "Y" %} <span class="text-gold">Booking System</span>. Все права защищены.
+            </p>
+            <div>
+                <a href="#" class="text-white-50 text-decoration-none me-3 hover-gold transition-all">Contacts</a>
+                <a href="#" class="text-white-50 text-decoration-none hover-gold transition-all">About</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .hover-gold:hover {
+        color: var(--gold) !important;
+    }
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+</style>

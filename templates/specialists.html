@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Специалисты — Ultra Barber Shop{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 animate-up">
+    <!-- Заголовок секции -->
+    <div class="text-center mb-5">
+        <h1 class="font-barber text-white display-4">НАШИ МАСТЕРА</h1>
+        <p class="text-gold fs-5">Профессионалы, которым можно доверить свой стиль</p>
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+            <hr class="border-gold w-25 opacity-50">
+            <i class="bi bi-person-badge text-gold fs-3"></i>
+            <hr class="border-gold w-25 opacity-50">
+        </div>
+    </div>
+
+    <!-- Сетка карточек -->
+    <div class="row g-4 justify-content-center">
+        {% for specialist in specialists %}
+        <div class="col-md-6 col-lg-4">
+            <div class="service-card h-100 d-flex flex-column text-center">
+
+                <!-- Аватарка с инициалом -->
+                <div class="mb-4">
+                    <div class="rounded-circle bg-dark border border-gold d-inline-flex align-items-center justify-content-center shadow-lg"
+                         style="width: 100px; height: 100px; border-width: 2px !important;">
+                        <span class="font-barber text-gold display-5">
+                            {{ specialist.name|slice:":1" }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Имя и специальность -->
+                <h4 class="font-barber text-white mb-2">{{ specialist.name }}</h4>
+                <p class="text-gold mb-4 fs-5">{{ specialist.speciality }}</p>
+
+                <!-- Опыт работы -->
+                <div class="bg-dark rounded-3 py-2 px-3 mb-4 d-inline-block mx-auto border border-secondary">
+                    <i class="bi bi-award text-gold me-2"></i>
+                    <span class="text-white-50">Опыт: <strong class="text-white">{{ specialist.experience }} лет</strong></span>
+                </div>
+
+                <!-- Кнопка записи (прижата к низу) -->
+                <div class="mt-auto pt-3">
+                    <a href="{% url 'new_booking' %}" class="btn btn-outline-gold w-100 py-2">
+                        <i class="bi bi-calendar-plus me-1"></i> ЗАПИСАТЬСЯ
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-person-x display-1 text-gold mb-3 d-block"></i>
+            <h3 class="font-barber text-white">МАСТЕРА ПОКА НЕ ДОБАВЛЕНЫ</h3>
+            <p class="text-white-50">Наши специалисты скоро появятся. Следите за обновлениями!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- Небольшой кастомный стиль для аватарки, чтобы она ровно стояла -->
+<style>
+    .border-gold {
+        border-color: var(--gold) !important;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Мои записи — Ultra Barber Shop{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 animate-up">
+    <div class="text-center mb-5">
+        <h1 class="font-barber text-white display-4">МОИ ЗАПИСИ</h1>
+        <p class="text-gold fs-5">Управляйте своими визитами</p>
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+            <hr class="border-gold w-25 opacity-50">
+            <i class="bi bi-calendar-week text-gold fs-3"></i>
+            <hr class="border-gold w-25 opacity-50">
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            {% for booking in bookings %}
+            <div class="service-card mb-4 p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+
+                <div class="d-flex align-items-center gap-4">
+                    <div class="bg-dark rounded-circle border border-secondary d-flex align-items-center justify-content-center"
+                         style="width: 60px; height: 60px; min-width: 60px;">
+                        <i class="bi bi-scissors text-gold fs-4"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-barber text-white mb-1">{{ booking.service }}</h4>
+                        <div class="text-white-50 small">
+                            <i class="bi bi-calendar-event me-1"></i> {{ booking.date }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center flex-wrap gap-3">
+
+                    {% if booking.status == 'confirmed' %}
+                        <span class="badge bg-success bg-opacity-25 text-success border border-success px-3 py-2 rounded-pill">
+                            <i class="bi bi-check-circle me-1"></i> Confirmed
+                        </span>
+                    {% elif booking.status == 'pending' %}
+                        <span class="badge bg-warning bg-opacity-25 text-warning border border-warning px-3 py-2 rounded-pill">
+                            <i class="bi bi-hourglass-split me-1"></i> Pending
+                        </span>
+                    {% elif booking.status == 'cancelled' %}
+                        <span class="badge bg-danger bg-opacity-25 text-danger border border-danger px-3 py-2 rounded-pill">
+                            <i class="bi bi-x-circle me-1"></i> Cancelled
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary px-3 py-2 rounded-pill">
+                            {{ booking.status }}
+                        </span>
+                    {% endif %}
+
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-info btn-sm px-3 d-flex align-items-center">
+                            <i class="bi bi-eye me-1"></i> View
+                        </a>
+                        <a href="#" class="btn btn-outline-danger btn-sm px-3 d-flex align-items-center">
+                            <i class="bi bi-trash me-1"></i> Cancel
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% empty %}
+
+            <div class="service-card p-5 text-center">
+                <i class="bi bi-calendar-x display-1 text-gold mb-3 d-block"></i>
+                <h3 class="font-barber text-white">У ВАС ПОКА НЕТ ЗАПИСЕЙ</h3>
+                <p class="text-white-50 mb-4">Самое время выбрать услугу и записаться к мастеру!</p>
+                <a href="{% url 'new_booking' %}" class="btn btn-gold px-4 py-2 font-barber pulse">
+                    ЗАПИСАТЬСЯ СЕЙЧАС
+                </a>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+</style>
+
+{% endblock %}
