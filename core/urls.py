@@ -22,3 +22,7 @@ urlpatterns = [
     path('', include('booking_manager.urls')),
     path('admin/', admin.site.urls),
 ]
+
+admin.site.site_header = "AdminPanel"
+admin.site.site_title = "BarberShop Admin"
+admin.site.index_title = "Добро пожаловать, Админ"
