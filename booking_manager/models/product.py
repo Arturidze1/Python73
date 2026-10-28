@@ -1,8 +1,8 @@
 from django.db import models
 
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
-class Product(BaseModel):
+class Product(DateTimeMixin):
 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)

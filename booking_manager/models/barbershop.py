@@ -1,8 +1,10 @@
+import datetime
+
 from django.db import models
 
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
-class Barbershop(BaseModel):
+class Barbershop(DateTimeMixin):
 
     name = models.CharField(
         max_length=255,
@@ -17,17 +19,17 @@ class Barbershop(BaseModel):
     )
 
     phone = models.CharField(
-        max_length=13,
+        max_length=20,
         verbose_name='Контактный телефон',
         unique=True
     )
 
     description = models.TextField(verbose_name='Описание филиала', null=True, blank=True)
 
-    opening_time = models.TimeField(verbose_name='Время открытия')
-    closing_time = models.TimeField(verbose_name='Время закрытия')
+    opening_time = models.TimeField(verbose_name='Время открытия', default=datetime.time(9, 0))
+    closing_time = models.TimeField(verbose_name='Время закрытия', default=datetime.time(22, 0))
 
-    is_active = models.BooleanField(default=True, verbose_name='Работает ли филиал')
+    is_active = models.BooleanField(verbose_name='Работает ли филиал', default=True)
 
     services = models.ManyToManyField(
         to='BookingService',

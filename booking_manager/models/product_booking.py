@@ -1,19 +1,21 @@
 from django.db import models
 
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
-class ProductBooking(BaseModel):
+class ProductBooking(DateTimeMixin):
     product = models.ForeignKey(
         to='Product',
+        related_name='product_to_products',
         on_delete=models.CASCADE
     )
 
     booking = models.ForeignKey(
         to='Booking',
+        related_name='products_to_book',
         on_delete = models.CASCADE
     )
-    quantity = models.PositiveIntegerField()
-    total_price = models.FloatField()
+    quantity = models.PositiveIntegerField(null=True)
+    total_price = models.FloatField(null=True)
 
     class Meta:
         db_table = 'Product_bookings'

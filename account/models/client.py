@@ -1,9 +1,9 @@
 from django.db import models
 
 from account.constants import ClientStatusChoices
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
-class Client(BaseModel):
+class Client(DateTimeMixin):
 
     status = models.CharField(
         choices=ClientStatusChoices,

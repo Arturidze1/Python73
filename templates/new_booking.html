@@ -1,161 +1,40 @@
 {% extends 'base.html' %}
-{% block title %}New Booking — Ultra Barber Shop{% endblock %}
+{% block title %}Новая запись{% endblock %}
 
 {% block content %}
-
-<div class="container py-5 animate-up">
-    <div class="text-center mb-5">
-        <h1 class="font-barber text-white display-4">НОВАЯ ЗАПИСЬ</h1>
-        <p class="text-gold fs-5">Забронируйте время в пару кликов</p>
-        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-            <hr class="border-gold w-25 opacity-50">
-            <i class="bi bi-calendar-check text-gold fs-3"></i>
-            <hr class="border-gold w-25 opacity-50">
-        </div>
-    </div>
-
-    <div class="row g-4 justify-content-center">
-
-        <!-- ЛЕВАЯ ЧАСТЬ: ФОРМА -->
-        <div class="col-md-8 col-lg-7">
-            <div class="service-card p-4 p-md-5">
-                <form method="post">
-                    {% csrf_token %}
-
-                    <div class="mb-4">
-                        <label class="form-label text-gold font-barber fs-5">
-                            <i class="bi bi-scissors me-2"></i>Услуга
-                        </label>
-                        <select class="form-select form-control-dark" name="service" required>
-                            <option value="" disabled selected>— Выберите услугу —</option>
-                            {% for service in services %}
-                            <option value="{{ service.id }}">{{ service.name }} ({{ service.price }} BYN)</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Специалист -->
-                    <div class="mb-4">
-                        <label class="form-label text-gold font-barber fs-5">
-                            <i class="bi bi-person me-2"></i>Специалист
-                        </label>
-                        <select class="form-select form-control-dark" name="specialist" required>
-                            <option value="" disabled selected>— Выберите мастера —</option>
-                            {% for specialist in specialists %}
-                            <option value="{{ specialist.id }}">{{ specialist.name }} ({{ specialist.speciality }})
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <!-- Дата и время -->
-                    <div class="mb-4">
-                        <label class="form-label text-gold font-barber fs-5">
-                            <i class="bi bi-clock me-2"></i>Дата и время
-                        </label>
-                        <!-- Убираем type="datetime-local", добавляем id -->
-                        <input type="text" id="datepicker" class="form-control form-control-dark" name="date"
-                               placeholder="Выберите дату и время..." required>
-                    </div>
-
-                    <div class="d-grid mt-5">
-                        <button type="submit" class="btn btn-gold btn-lg py-3 font-barber fs-4 pulse">
-                            <i class="bi bi-check-circle me-2"></i>ЗАБРОНИРОВАТЬ
-                        </button>
-                    </div>
-                </form>
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Новая запись</h2>
+        <form method="post" class="border p-4 bg-light rounded">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Услуга</label>
+                <select class="form-select" name="service" required>
+                    <option value="" disabled selected>Выберите услугу</option>
+                    {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.name }} ({{ service.price }} BYN)</option>
+                    {% endfor %}
+                </select>
             </div>
-        </div>
-
-        <!-- ПРАВАЯ ЧАСТЬ: ИНФОРМАЦИЯ -->
-        <div class="col-md-4 col-lg-4">
-            <div class="service-card h-100" style="border-left: 4px solid var(--gold);">
-                <div class="p-2">
-                    <h4 class="font-barber text-gold mb-4 border-bottom border-secondary pb-3">
-                        <i class="bi bi-info-circle me-2"></i>Информация
-                    </h4>
-
-                    <ul class="list-unstyled text-white-50 fs-6 lh-lg">
-                        <li class="mb-3 d-flex">
-                            <i class="bi bi-1-circle-fill text-gold me-3 fs-5"></i>
-                            <span>Выберите нужную <strong>услугу</strong> из списка.</span>
-                        </li>
-                        <li class="mb-3 d-flex">
-                            <i class="bi bi-2-circle-fill text-gold me-3 fs-5"></i>
-                            <span>Укажите <strong>мастера</strong>, к которому хотите попасть.</span>
-                        </li>
-                        <li class="mb-3 d-flex">
-                            <i class="bi bi-3-circle-fill text-gold me-3 fs-5"></i>
-                            <span>Выберите удобные <strong>дату и время</strong>.</span>
-                        </li>
-                        <li class="mb-3 d-flex">
-                            <i class="bi bi-4-circle-fill text-gold me-3 fs-5"></i>
-                            <span>Нажмите <strong>Забронировать</strong> и ждите подтверждения.</span>
-                        </li>
-                    </ul>
-
-                    <hr class="border-secondary my-4">
-
-                    <div class="text-center">
-                        <p class="text-white-50 small mb-2">Статус вашей записи можно посмотреть в разделе</p>
-                        <a href="{% url 'bookings' %}" class="btn btn-outline-gold btn-sm w-100">
-                            <i class="bi bi-list-check me-2"></i>МОИ ЗАПИСИ
-                        </a>
-                    </div>
-                </div>
+            <div class="mb-3">
+                <label class="form-label">Специалист</label>
+                <select class="form-select" name="specialist" required>
+                    <option value="" disabled selected>Выберите мастера</option>
+                    {% for specialist in specialists %}
+                        <option value="{{ specialist.id }}">{{ specialist.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </div>
-
+            <div class="mb-4">
+                <label class="form-label">Дата и время</label>
+                <input type="text" id="datepicker" class="form-control" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Забронировать</button>
+        </form>
     </div>
 </div>
 
-<!-- Дополнительный CSS только для этой страницы, чтобы форма была тёмной -->
-<style>
-    .form-control-dark {
-        background-color: #0d0d0d !important;
-        border: 1px solid #333 !important;
-        color: #e0e0e0 !important;
-        padding: 12px 15px;
-        font-family: 'Oswald', sans-serif;
-        font-size: 1.05rem;
-        transition: all 0.3s ease;
-    }
-    .form-control-dark:focus {
-        background-color: #0d0d0d !important;
-        border-color: var(--gold) !important;
-        box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25) !important;
-        color: #fff !important;
-    }
-    .form-control-dark option {
-        background-color: #1a1a1a;
-        color: #e0e0e0;
-    }
-    .form-select.form-control-dark {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d4af37' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
-    }
-</style>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        flatpickr("#datepicker", {
-            enableTime: true,           // Включаем выбор времени
-            dateFormat: "Y-m-d H:i",    // Формат для сервера Django (2026-10-20 14:30)
-            altInput: true,             // Показываем красивый формат пользователю
-            altFormat: "d F Y, H:i",    // Как видит пользователь (20 Октября 2026, 14:30)
-            minDate: "today",           // Нельзя выбрать прошедшую дату
-            time_24hr: true,            // 24-часовой формат (без AM/PM)
-            locale: {
-                firstDayOfWeek: 1,      // Неделя начинается с понедельника
-                weekdays: {
-                    shorthand: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
-                    longhand: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
-                },
-                months: {
-                    shorthand: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
-                    longhand: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
-                }
-            },
-            disableMobile: true
-        });
-    });
+    flatpickr("#datepicker", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today", time_24hr: true, locale: "ru" });
 </script>
 {% endblock %}

@@ -1,10 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.db import models
 from account.managers import UserManager
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
 
-class User(AbstractBaseUser, PermissionsMixin, BaseModel):
+class User(AbstractBaseUser, PermissionsMixin, DateTimeMixin):
     username = models.CharField(max_length=64, null=True, blank=True, unique=True)
     phone = models.CharField(max_length=255, null=True, blank=True, unique=True)
     first_name = models.CharField(max_length=64, null=True, blank=True)
@@ -23,3 +23,4 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         db_table = 'Users'
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+

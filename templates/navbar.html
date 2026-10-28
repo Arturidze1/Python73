@@ -1,19 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #333;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand font-barber fs-3 text-gold" href="{% url 'home' %}">
-            <i class="bi bi-scissors me-2"></i>BARBER SHOP
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+            <i class="bi bi-scissors text-primary"></i> BARBER SHOP
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ms-auto font-barber fs-5">
-                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная страница</a></li>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Услуги</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'specialists' %}">Специалисты</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'bookings' %}">Записи</a></li>
                 <li class="nav-item ms-lg-3">
-                    <a href="{% url 'new_booking' %}" class="btn btn-gold btn-sm px-3 py-2">Забронировать</a>
+                    <a href="{% url 'new_booking' %}" class="btn btn-primary">Забронировать</a>
                 </li>
             </ul>
         </div>

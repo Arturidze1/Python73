@@ -1,74 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}Услуги — Ultra Barber Shop{% endblock %}
+{% block title %}Услуги{% endblock %}
 
 {% block content %}
+<h2 class="text-center mb-4 mt-3 fw-bold">Наши услуги</h2>
 
-<div class="container py-5 animate-up">
-    <div class="text-center mb-5">
-        <h1 class="font-barber text-white display-4">НАШИ УСЛУГИ</h1>
-        <p class="text-gold fs-5">Выберите то, что подчеркнёт ваш стиль</p>
-        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-            <hr class="border-gold w-25 opacity-50">
-            <i class="bi bi-scissors text-gold fs-3"></i>
-            <hr class="border-gold w-25 opacity-50">
+<div class="row g-4">
+    {% for service in services %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-3">
+            <h4 class="card-title fw-bold">{{ service.name }}</h4>
+            <p class="text-muted mb-2">Категория: {{ service.category }}</p>
+            <p class="fw-bold fs-5">{{ service.price }} BYN</p>
+            <p class="text-muted small">Длительность: {{ service.duration_minutes }} мин</p>
+            <a href="{% url 'new_booking' %}" class="btn btn-outline-primary mt-auto">Записаться</a>
         </div>
     </div>
-
-    <div class="row g-4 justify-content-center">
-        {% for service in services %}
-        <div class="col-md-6 col-lg-4">
-            <div class="service-card h-100 d-flex flex-column">
-
-                <div class="text-center mb-4">
-                    {% if service.category == 'Hair' %}
-                        <i class="bi bi-scissors service-icon display-3"></i>
-                    {% elif service.category == 'Nails' %}
-                        <i class="bi bi-hand-index-thumb service-icon display-3"></i>
-                    {% elif service.category == 'Wellness' %}
-                        <i class="bi bi-heart-pulse service-icon display-3"></i>
-                    {% else %}
-                        <i class="bi bi-stars service-icon display-3"></i>
-                    {% endif %}
-                </div>
-
-                <div class="text-center mb-3">
-                    <h4 class="font-barber text-white mb-1">{{ service.name }}</h4>
-                    <span class="badge bg-dark border border-secondary text-gold px-3 py-2">
-                        {{ service.category }}
-                    </span>
-                </div>
-
-                <div class="d-flex justify-content-between text-white-50 border-top border-secondary pt-3 mt-auto mb-4">
-                    <div>
-                        <i class="bi bi-clock text-gold me-1"></i>
-                        {{ service.duration }} мин
-                    </div>
-                    <div class="fs-5 text-gold font-barber">
-                        {{ service.price }} BYN
-                    </div>
-                </div>
-
-                <!-- Кнопка записи -->
-                <a href="{% url 'new_booking' %}" class="btn btn-outline-gold w-100 py-2">
-                    ЗАПИСАТЬСЯ <i class="bi bi-arrow-right ms-1"></i>
-                </a>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-            <i class="bi bi-emoji-frown display-1 text-gold mb-3 d-block"></i>
-            <h3 class="font-barber text-white">ПОКА НЕТ УСЛУГ</h3>
-            <p class="text-white-50">Загляните позже — мы готовим для вас кое-что крутое.</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="text-center mt-5 pt-4">
-        <p class="text-white-50 mb-3">Не нашли подходящую услугу? Свяжитесь с нами!</p>
-        <a href="{% url 'new_booking' %}" class="btn btn-gold px-5 py-3 font-barber fs-5 pulse">
-            <i class="bi bi-calendar-check me-2"></i>ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ
-        </a>
-    </div>
+    {% empty %}
+    <p class="text-center text-muted">Пока нет доступных услуг.</p>
+    {% endfor %}
 </div>
-
 {% endblock %}

@@ -1,20 +1,15 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from core.models import BaseModel
+from core.models import DateTimeMixin, RatingMixin
 
 
-class Comment(BaseModel):
+
+class Comment(DateTimeMixin, RatingMixin):
     text = models.TextField(
         verbose_name='Текст комментария',
         null=True,
         blank=True
-    )
-
-    rating = models.PositiveIntegerField(
-        validators=[MaxValueValidator(5),
-                    MinValueValidator(1)],
-        verbose_name='Оценка'
     )
 
     is_published = models.BooleanField(

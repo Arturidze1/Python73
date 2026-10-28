@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path('', include('booking_manager.urls')),
     path('admin/', admin.site.urls),
-]
+] + debug_toolbar_urls()
 
 admin.site.site_header = "AdminPanel"
 admin.site.site_title = "BarberShop Admin"

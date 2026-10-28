@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from booking_manager.models import Barbershop, Booking, BookingService, Comment, Product, ProductBooking, Promotion
+
 
 admin.site.register(Barbershop)
 admin.site.register(Booking)

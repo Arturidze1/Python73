@@ -1,14 +1,14 @@
 from django.db import models
 
-from core.models import BaseModel
+from core.models import DateTimeMixin, RatingMixin
 
 
-class Barber(BaseModel):
+
+class Barber(DateTimeMixin, RatingMixin):
 
     experience = models.IntegerField(blank=True)
-    rating = models.FloatField(null=True, blank=True)
     user = models.OneToOneField(
-        to='User',
+        to='account.User',
         related_name='barber',
         on_delete=models.CASCADE,
         null=True,

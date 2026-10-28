@@ -1,13 +1,13 @@
 from django.db import models
+from ..managers import GetActive
 
-from core.models import BaseModel
+from core.models import DateTimeMixin
 
-class Booking(BaseModel):
+class Booking(DateTimeMixin):
 
     name = models.CharField(
         max_length=30,
-        verbose_name='Наименование',
-        unique=True
+        verbose_name='Наименование'
     )
 
     is_active = models.BooleanField(
@@ -46,6 +46,9 @@ class Booking(BaseModel):
         blank=True
     )
 
+    # Then hook it into the Book model explicitly.
+    objects = models.Manager()  # The default manager.
+    get_active_books = GetActive()
 
 
     class Meta:
