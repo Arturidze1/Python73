@@ -14,7 +14,7 @@ class Comment(DateTimeMixin, RatingMixin):
 
     is_published = models.BooleanField(
         default=True,
-        verbose_name='Опубликовать?'
+        verbose_name='Публикация комментария'
     )
 
     client = models.ForeignKey(

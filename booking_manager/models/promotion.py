@@ -4,11 +4,11 @@ from core.models import DateTimeMixin
 
 class Promotion(DateTimeMixin):
 
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    discount_percent = models.PositiveSmallIntegerField()
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
+    name = models.CharField(max_length=100, verbose_name='Название акции')
+    description = models.TextField(blank=True, verbose_name='Описание акции')
+    discount_percent = models.PositiveSmallIntegerField(verbose_name='Скидка по акции')
+    start_date = models.DateField(null=True, verbose_name='Дата начала акции')
+    end_date = models.DateField(null=True, verbose_name='Дата окончания акции')
 
     services = models.ManyToManyField(
         to='BookingService',
@@ -16,7 +16,7 @@ class Promotion(DateTimeMixin):
         verbose_name='Услуги'
     )
 
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False, verbose_name='Активна ли акция')
 
     class Meta:
         db_table = 'Promotion'

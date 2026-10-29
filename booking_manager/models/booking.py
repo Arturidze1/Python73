@@ -1,3 +1,5 @@
+from tabnanny import verbose
+
 from django.db import models
 from ..managers import GetActive
 
@@ -12,7 +14,7 @@ class Booking(DateTimeMixin):
 
     is_active = models.BooleanField(
         default=True,
-        verbose_name='Активна'
+        verbose_name='Активность'
     )
 
     visit_time = models.DateTimeField(
@@ -35,7 +37,8 @@ class Booking(DateTimeMixin):
         related_name='bookings',
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Барбер'
         )
 
     client = models.ForeignKey(
@@ -43,7 +46,8 @@ class Booking(DateTimeMixin):
         related_name='bookings',
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Клиент'
     )
 
     # Then hook it into the Book model explicitly.
