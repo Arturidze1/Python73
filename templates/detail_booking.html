@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Детали записи{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold"> Запись №{{ details.id }}
+        </h2>
+        <a href="{% url 'bookings' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Назад
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4 border-bottom pb-2">Информация</h4>
+                    <p><strong>
+                        {% if details.client.user.first_name %}
+                        <i class="bi bi-person"></i> Клиент: {{ details.client.user.first_name }}
+                        ({{ details.client.user.email }})
+                        {% else %}
+                        <i class="bi bi-envelope-at"></i>{{ details.client.user.email }}
+                        {% endif %}
+                    </strong></p>
+
+                    <p><strong>
+                        {% if details.barber.user.first_name %}
+                        <i class="bi bi-person-fill"></i> Барбер: {{ details.barber.user.first_name }}
+                        ({{ details.barber.user.email }})
+                        {% else %}
+                        <i class="bi bi-envelope-at-fill"></i>{{ details.barber.user.email }}
+                        {% endif %}
+                    </strong></p>
+
+                    <p><strong>
+                        {% if details.visit_time %}
+                        <i class="bi bi-clock"></i> Время визита: {{ details.visit_time }} ({{ details.visit_time }})
+                        {% else %}
+                        <i class="bi bi-clock"></i> Время не указано
+                        {% endif %}
+                    </strong></p>
+
+                    <p><strong>
+                        <i class="bi bi-scissors"></i> Услуга: {{ details.booking_service }}
+                    </strong></p>
+
+                    <p><strong>
+                        {% if details.is_active %}
+                        <i class="bi bi-check-square-fill"></i> Статус: Активна
+                        {% else %}
+                        <i class="bi bi-ban"></i> Статус: Неактивна
+                        {% endif %}
+                    </strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">Добавленные товары</h4>
+
+                    {% if details.products_to_book.all %}
+                    <ul class="list-group list-group-flush">
+                        {% for item in details.products_to_book.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <div>
+                                <i class="bi bi-box-seam text-muted me-2"></i>
+                                {{ item.product.name }}
+                            </div>
+                            <span class="badge bg-primary rounded-pill">{{ item.quantity | default:"1"  }} шт.</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <p class="text-muted mb-0">Корзина пуста.</p>
+                    </div>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Новая запись{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Новая запись</h2>
+        <form method="post" class="border p-4 bg-light rounded">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Услуга</label>
+                <select class="form-select" name="service" required>
+                    <option value="" disabled selected>Выберите услугу</option>
+                    {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.name }} ({{ service.price }} BYN)</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Специалист</label>
+                <select class="form-select" name="specialist" required>
+                    <option value="" disabled selected>Выберите мастера</option>
+                    {% for specialist in specialists %}
+                        <option value="{{ specialist.id }}">{{ specialist.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Дата и время</label>
+                <input type="text" id="datepicker" class="form-control" name="date" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Забронировать</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    flatpickr("#datepicker", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today", time_24hr: true, locale: "ru" });
+</script>
+{% endblock %}

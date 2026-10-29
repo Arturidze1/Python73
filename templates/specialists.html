@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Специалисты{% endblock %}
+
+{% block content %}
+<h2 class="text-center mb-4 mt-3 fw-bold">Наши мастера</h2>
+
+<div class="row g-4">
+    {% for specialist in specialists %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-3">
+            <div class="mb-3">
+                <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center fs-3" style="width: 60px; height: 60px;">
+                {{ specialist.user.first_name|slice:":1" }}
+                </span>
+            </div>
+            <h4 class="card-title fw-bold">{{ specialist.user.first_name }}</h4>
+            {% for comment in specialist.received_comment.all %}
+            <span class="bi bi-messenger"> {{ comment.text }}</span>
+            <span class="bi bi-star-fill text-warning"> {{ comment.rating }} / 5</span>
+            {% empty %}
+            <span class="text-muted">Пока нет комментариев</span>
+            {% endfor %}
+            <p class="small">Опыт: {{ specialist.experience }} лет</p>
+            <a href="{% url 'new_booking' %}" class="btn btn-outline-primary mt-auto">Записаться</a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">Специалисты пока не добавлены.</p>
+    {% endfor %}
+</div>
+{% endblock %}

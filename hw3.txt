@@ -1,0 +1,38 @@
+1) Получить все задачи из базы данных
+qs = Booking.objects.all()
+
+2) Получить все бронирования, цена которых больше 100.
+Booking.objects.filter(price__gt=100)
+
+3)Найти бронирования, в названии которых содержится строка "стрижка" без учёта регистра.
+Booking.objects.filter(name__icontains='стрижка')
+
+4) Получить бронирования, название которых начинается с "Муж", без учёта регистра.
+Booking.objects.filter(name__istartswith='Муж')
+
+5) Получить все бронирования, у которых не указано время визита.
+Booking.objects.filter(visit_time__isnull=True)
+
+6) Получить активные бронирования определённой категории, например HAIRCUT, цена которых не превышает 100
+Booking.objects.filter(is_active=True, category=CategoryChoices.HAIRCUT, price__lte=100)
+
+7)Получить все бронирования, относящиеся к категориям  HAIRCUT и MOUSTACHE
+Booking.objects.filter(category__in=[CategoryChoices.HAIRCUT,CategoryChoices.MOUSTACHE])
+
+8) Получить все бронирования, кроме неактивных записей с ценой меньше 50.
+Booking.objects.exclude(is_active=False, price__lt=50)
+
+9)Найти все бронирования, созданные сегодня
+Booking.objects.filter(created_at__date=datetime.date.today())
+
+10)Увеличить или изменить цену всех бронирований определённой категории на фиксированное значение, например установить цену 120
+Booking.objects.filter(category=CategoryChoices.HAIRCUT).update(price=130)
+
+11)Сделать все бронирования с ценой выше 200 неактивными.
+Booking.objects.filter(price__gt=200).update(is_active=False)
+
+12)Для всех бронирований, у которых visit_time не указан, установить is_active=False.
+Booking.objects.filter(visit_time__isnull=True).update(is_active=False)
+
+13)Удалить все неактивные бронирования, цена которых меньше 20.
+Booking.objects.filter(is_active=False,price__lt=20).delete
