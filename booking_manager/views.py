@@ -1,8 +1,14 @@
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
-from booking_manager.models import Booking, BookingService
-from account.models import Barber
+from booking_manager.forms.booking_form import BookingForm
+from booking_manager.forms.booking_service_form import BookingServiceForm
+from booking_manager.forms.comment_form import CommentForm
+from booking_manager.models import Booking, BookingService, Comment
+from account.models import Barber, Client
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the booking_manager index.")
@@ -51,5 +57,64 @@ def detail_booking(request, booking_id):
 
     return render(request, template_name=template_name, context=context)
 
+@login_required
 def new_booking(request):
-    return render(request, 'new_booking.html')
+    template_name = 'new_booking.html'
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            if hasattr(request.user, 'client'):
+
+                booking = form.save(commit=False)
+                booking.client = request.user.client
+                booking.save()
+
+                return HttpResponseRedirect(reverse('home'))
+        else:
+            form.add_error(None, 'У вас нет профиля клиента. Вы не можете забронировать мастера.')
+    else:
+        form = BookingForm()
+
+    return render(request, template_name=template_name, context={'form' : form})
+
+
+@login_required
+def add_comments(request):
+    template_name = 'add_comments.html'
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            if hasattr(request.user, 'client'):
+
+                barber = form.cleaned_data['barber']
+                text = form.cleaned_data['text']
+                rating = form.cleaned_data['rating']
+
+                Comment.objects.create(
+                    barber=barber,
+                    text=text,
+                    rating=rating,
+                    client= request.user.client,
+                    is_published=False
+                )
+
+            return HttpResponseRedirect(reverse('specialists'))
+        else:
+            form.add_error(None, 'У вас нет профиля клиента. Вы не можете оставить комментарий.')
+    else:
+        form = CommentForm()
+
+    return render(request, template_name=template_name, context={'form' : form})
+
+
+def add_booking_service(request):
+    template_name = 'add_booking_service.html'
+    if request.method == "POST":
+        form = BookingServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        form = BookingServiceForm()
+
+    return render(request, template_name=template_name, context={'form' : form})

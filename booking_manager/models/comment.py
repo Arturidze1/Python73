@@ -37,7 +37,9 @@ class Comment(DateTimeMixin, RatingMixin):
         to='Booking',
         related_name='comment',
         on_delete=models.CASCADE,
-        verbose_name='Бронирование'
+        verbose_name='Бронирование',
+        null=True,
+        blank=True
     )
 
     class Meta:

@@ -8,7 +8,9 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "crispy-bootstrap5>=2026.9",
     "django>=6.1.2",
+    "django-crispy-forms>=2.7",
     "django-debug-toolbar>=8.0.0",
     "django-extensions>=4.1",
     "faker>=40.43.0",

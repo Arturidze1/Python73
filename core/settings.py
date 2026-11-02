@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'booking_manager',
     'account',
-    'debug_toolbar'
+    'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
@@ -117,13 +122,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL='account.user'
 
+LOGIN_URL = 'services'
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = True
 
 USE_TZ = True

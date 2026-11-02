@@ -1,35 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Новая запись{% endblock %}
 
+{%load crispy_forms_tags %}
 {% block content %}
 <div class="row justify-content-center mt-4">
     <div class="col-md-6">
         <h2 class="text-center mb-4">Новая запись</h2>
-        <form method="post" class="border p-4 bg-light rounded">
+        <form action="{% url 'new_booking' %}" method="post">
             {% csrf_token %}
+
             <div class="mb-3">
-                <label class="form-label">Услуга</label>
-                <select class="form-select" name="service" required>
-                    <option value="" disabled selected>Выберите услугу</option>
-                    {% for service in services %}
-                        <option value="{{ service.id }}">{{ service.name }} ({{ service.price }} BYN)</option>
-                    {% endfor %}
-                </select>
+                {{ form|crispy }}
             </div>
-            <div class="mb-3">
-                <label class="form-label">Специалист</label>
-                <select class="form-select" name="specialist" required>
-                    <option value="" disabled selected>Выберите мастера</option>
-                    {% for specialist in specialists %}
-                        <option value="{{ specialist.id }}">{{ specialist.name }}</option>
-                    {% endfor %}
-                </select>
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-send"></i> Забронировать
+                </button>
             </div>
-            <div class="mb-4">
-                <label class="form-label">Дата и время</label>
-                <input type="text" id="datepicker" class="form-control" name="date" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Забронировать</button>
         </form>
     </div>
 </div>

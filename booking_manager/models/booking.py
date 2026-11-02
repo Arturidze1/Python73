@@ -18,7 +18,7 @@ class Booking(DateTimeMixin):
     )
 
     visit_time = models.DateTimeField(
-        verbose_name='Время визита',
+        verbose_name='Время и дата визита',
         null=True,
         blank=True
     )
