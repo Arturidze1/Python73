@@ -12,7 +12,8 @@ class CommentForm(forms.Form):
 
     text = forms.CharField(
         label='Введите комментарий',
-        widget=Textarea(attrs={'style': 'resize: none'})
+        widget=Textarea(attrs={'style': 'resize: none'}),
+        required=False
     )
 
     rating = forms.IntegerField(
@@ -27,3 +28,4 @@ class CommentForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['barber'].label_from_instance = lambda x: f'{x.user.first_name} {x.user.last_name}'
 
+        self.fields['barber'].queryset = Barber.objects.select_related('user')

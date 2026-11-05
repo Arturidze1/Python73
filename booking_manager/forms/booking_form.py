@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django import forms
 
+from account.models import Barber
 from booking_manager.models import Booking
 
 
@@ -41,7 +42,10 @@ class BookingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
         self.fields['visit_time'].input_formats = ['%Y-%m-%dT%H:%M']
 
         self.fields['booking_service'].empty_label = '----Выберите услугу----'
         self.fields['barber'].empty_label = '----Выберите барбера----'
+
+        self.fields['barber'].queryset = Barber.objects.select_related('user')
