@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Новая запись{% endblock %}
+
+{%load crispy_forms_tags %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h2 class="text-center mb-4">Новая запись</h2>
+        <form action="{% url 'new_booking' %}" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                {{ form|crispy }}
+            </div>
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-send"></i> Забронировать
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    flatpickr("#datepicker", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today", time_24hr: true, locale: "ru" });
+</script>
+{% endblock %}

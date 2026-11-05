@@ -1,0 +1,21 @@
+1)Получить все бронирования, которые сделал клиент с ID = 2.
+client1.bookings.all()
+2)Получить все бронирования, у которых есть хотя бы один товар.
+Booking.objects.filter(products__isnull=False)       
+3)Получить всех барберов, у которых есть хотя бы один комментарий.
+Barber.objects.filter(received_comment__isnull=False)
+4)Получить все комментарии, которые оставил клиент с ID = 3.
+Comment.objects.filter(client=Client.objects.get(id=3))
+5)Получить все барбершопы, в которых работает хотя бы один барбер.
+Barbershop.objects.filter(barbers__isnull=False)
+6)Получить все услуги, на которые действует хотя бы одна активная акция.
+BookingService.objects.filter(promotions__isnull=False, promotions__is_active=True).distinct()
+7)Получить все бронирования клиентов, которые оставили хотя бы один комментарий с оценкой 5.
+Booking.objects.filter(comment__rating=5)
+8)Получить все товары, которые были добавлены в бронирования клиентов со статусом NOOB.
+Product.objects.filter(bookings__client__status='Noob')
+9)Получить все услуги, которые бронировали клиенты, оставившие хотя бы один комментарий с оценкой ниже 3.
+BookingService.objects.filter(bookings__client__comments__rating__lt=3)
+10)Получить все бронирования, в которых есть товар с названием «Шампунь» и которые обслуживает барбер с опытом работы больше 3 лет.
+Booking.objects.filter(products__name__icontains='Шампунь', barber__experience__gt=3)
+

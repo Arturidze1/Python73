@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Мои записи{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h2 class="fw-bold">Мои записи</h2>
+    <a href="{% url 'new_booking' %}" class="btn btn-primary">+ Новая запись</a>
+</div>
+
+{% for booking in bookings %}
+<div class="card mb-3 shadow-sm border-0">
+    <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h5 class="fw-bold mb-1">Запись #{{booking.id}}</h5>
+            <p class="text-muted middle mb-0">
+            <div>
+                <i class="bi bi-person-fill"></i> Барбер {{booking.barber.user.first_name}} ->
+                <i class="bi bi-person"></i> Клиент {{booking.client.user.first_name}}
+                <i class="bi bi-clock-history"></i>
+                    {% if booking.visit_time %}
+                    {{ booking.visit_time }}
+                    {% else %}
+                    <span class="text-muted">Не назначено</span>
+                    {% endif %}
+                <i class="bi bi-scissors"></i> {{booking.booking_service}}
+            </div>
+            </p>
+        </div>
+        <div>
+            <a href="{% url 'detail_booking' booking.id %}" class="btn btn-outline-primary btn-sm">View</a>
+            <a href="#" class="btn btn-outline-danger btn-sm">Cancel</a>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="text-center py-5">
+    <p class="text-muted">У вас пока нет записей.</p>
+</div>
+{% endfor %}
+{% endblock %}
