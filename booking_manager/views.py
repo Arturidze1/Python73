@@ -160,17 +160,41 @@ def add_to_cart(request, booking_id, product_id):
     if request.method == "POST":
         form = ProductBookingForm(request.POST)
         if form.is_valid():
-            product_booking = form.save(commit=False)
+            quantity = form.cleaned_data['quantity']
+            product_booking, created = ProductBooking.objects.get_or_create(
+                booking=booking,
+                product=product,
+                defaults={
+                    'quantity': quantity,
+                    'total_price': product.price * quantity,
+                },
+            )
 
-            product_booking.booking = booking
-            product_booking.product = product
+            if not created:
+                product_booking.quantity += quantity
+                product_booking.total_price = product.price * product_booking.quantity
+                product_booking.save(update_fields=['quantity', 'total_price'])
 
-            product.amount -= product_booking.quantity
-            product_booking.total_price = product.price * product_booking.quantity
-
-            product_booking.save()
+            product.amount -= quantity
+            product.save(update_fields=['amount'])
             return redirect('product_shop', booking_id=booking.id)
 
     return redirect('product_shop', booking_id=booking.id)
 
+
+def remove_from_booking(request, booking_id, product_booking_id):
+    if request.method == 'POST':
+        booking = get_object_or_404(Booking, id=booking_id)
+        product_booking = get_object_or_404(
+            ProductBooking.objects.select_related('product'),
+            id=product_booking_id,
+            booking=booking,
+        )
+
+        product = product_booking.product
+        product.amount += product_booking.quantity or 0
+        product.save(update_fields=['amount'])
+        product_booking.delete()
+
+    return redirect('detail_booking', booking_id=booking_id)
 
