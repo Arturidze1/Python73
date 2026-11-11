@@ -17,7 +17,7 @@ class ProductBookingForm(forms.ModelForm):
                 self.add_error('quantity', f'Товаров мало на складе. Осталось {product.amount}')
 
             elif quantity <= 0:
-                self.add_error('qauntity', 'Введите количество больше чем 0')
+                self.add_error('quantity', 'Введите количество больше чем 0')
 
         return clean_obj
 

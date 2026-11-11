@@ -67,14 +67,14 @@ def new_booking(request):
     template_name = 'new_booking.html'
     if request.method == "POST":
         form = BookingForm(request.POST)
-        if form.is_valid():
-            if hasattr(request.user, 'client'):
+        if hasattr(request.user, 'client'):
+            if form.is_valid():
 
-                booking = form.save(commit=False)
-                booking.client = request.user.client
-                booking.save()
+                    booking = form.save(commit=False)
+                    booking.client = request.user.client
+                    booking.save()
 
-                return HttpResponseRedirect(reverse('home'))
+                    return HttpResponseRedirect(reverse('home'))
         else:
             form.add_error(None, 'У вас нет профиля клиента. Вы не можете забронировать мастера.')
     else:
@@ -89,22 +89,22 @@ def add_comments(request):
     template_name = 'add_comments.html'
     if request.method == "POST":
         form = CommentForm(request.POST)
-        if form.is_valid():
-            if hasattr(request.user, 'client'):
+        if hasattr(request.user, 'client'):
+            if form.is_valid():
 
-                barber = form.cleaned_data['barber']
-                text = form.cleaned_data['text']
-                rating = form.cleaned_data['rating']
+                    barber = form.cleaned_data['barber']
+                    text = form.cleaned_data['text']
+                    rating = form.cleaned_data['rating']
 
-                Comment.objects.create(
-                    barber=barber,
-                    text=text,
-                    rating=rating,
-                    client= request.user.client,
-                    is_published=False
-                )
+                    Comment.objects.create(
+                        barber=barber,
+                        text=text,
+                        rating=rating,
+                        client= request.user.client,
+                        is_published=False
+                    )
 
-            return HttpResponseRedirect(reverse('specialists'))
+                    return HttpResponseRedirect(reverse('specialists'))
         else:
             form.add_error(None, 'У вас нет профиля клиента. Вы не можете оставить комментарий.')
     else:
