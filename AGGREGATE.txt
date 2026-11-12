@@ -1,0 +1,26 @@
+1.Найти количество услуг, минимальную, максимальную и среднюю стоимость.
+BookingService.objects.aggregate(total=Count('id'), min_price=Min('price'), max_price=Max('price'), avg_price=Avg('price')) 
+
+2.Вывести имя барбера и количество его бронирований. Отсортировать по убыванию. 
+Barber.objects.annotate(bookings_count=Count('bookings')).order_by('-bookings_count')
+
+3.Найти услуги, которые бронировали больше трёх раз.
+BookingService.objects.annotate(bookings_count=Count('bookings')).filter(bookings_count__gt=3)
+
+4.Найти клиентов с количеством бронирований больше среднего. 
+clients= Client.objects.annotate(bk_cnt=Count('bookings')).aggregate(avg=Avg('bk_cnt'))
+avg_nums = clients['avg']
+Client.objects.annotate(bk_cnt=Count('bookings')).filter(bk_cnt__gt=avg_nums)
+
+5.Найти барберов, у которых средняя оценка комментариев выше 4.5.
+Barber.objects.annotate(avg_rt=Avg('received_comment__rating')).filter(avg_rt__gt=4.5)
+
+6.Посчитать количество активных и неактивных бронирований каждого барбера
+Barber.objects.annotate(active_book=Count('bookings', filter=Q(bookings__is_active=True)), non_active_book=Count('bookings', filter=Q(bookings__is_active=False)))
+
+7.*Найти клиентов, потративших больше 1000 на услуги
+sum_services = Client.objects.annotate(sum_sr=Sum('bookings__booking_service__price')).filter(sum_sr__gt=1000)
+
+8.*Получить общую сумму проданных товаров в каждом бронировании. 
+sum_products = Booking.objects.annotate(sum_pr=Sum('products_to_book__total_price'))     
+
