@@ -54,8 +54,25 @@
                         {% else %}
                         <i class="bi bi-ban"></i> Статус: Неактивна
                         {% endif %}
-                    </strong>
-                    </p>
+                    </strong></p>
+
+                    {% if not details.is_active %}
+                    <form action="{% url 'checkout_booking' details.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary mt-3 mb-3">
+                            Подтвердить бронь
+                        </button>
+                    </form>
+                    {% endif %}
+
+                    {% if details.is_active %}
+                    <form action="{% url 'cancel_booking' details.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger mt-3 mb-3">
+                            Отменить бронь
+                        </button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -91,11 +108,13 @@
                         <p class="text-muted mb-0">Корзина пуста.</p>
                     </div>
                     {% endif %}
+                    {% if not details.is_active%}
                     <div class="text-center">
                         <a href="{% url 'product_shop' details.id %}" class="btn btn-outline-primary mt-3 mb-3">
                             Добавить товары +
                         </a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ Client.objects.annotate(bk_cnt=Count('bookings')).filter(bk_cnt__gt=avg_nums)
 Barber.objects.annotate(avg_rt=Avg('received_comment__rating')).filter(avg_rt__gt=4.5)
 
 6.Посчитать количество активных и неактивных бронирований каждого барбера
-Barber.objects.annotate(active_book=Count('bookings', filter=Q(bookings__is_active=True)), non_active_book=Count('bookings', filter=Q(bookings__is_active=False)))
+Barber.objects.annotate(active_book=Count('bookings', filter=Q(bookings__is_active=True)), non_active_book=Count('bookings', filter=Q(bookings__is_active=False)))  
 
 7.*Найти клиентов, потративших больше 1000 на услуги
 sum_services = Client.objects.annotate(sum_sr=Sum('bookings__booking_service__price')).filter(sum_sr__gt=1000)

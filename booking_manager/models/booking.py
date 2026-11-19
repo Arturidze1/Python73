@@ -13,7 +13,7 @@ class Booking(DateTimeMixin):
     )
 
     is_active = models.BooleanField(
-        default=True,
+        default=False,
         verbose_name='Активность'
     )
 
