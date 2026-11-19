@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Оставить комментарий{% endblock %}
+
+{%load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4 mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-chat-right-text"></i> Оставить отзыв
+        </h2>
+        <a href="{% url 'specialists' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Назад к барберам
+        </a>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4 border-bottom pb-2">Ваш отзыв</h4>
+                    <form action="{% url 'add_comments' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send"></i> Опубликовать
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

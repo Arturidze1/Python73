@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h1>{{ barber.user.first_name }} {{ barber.user.last_name }}</h1>
+            <p class="text-muted">Опыт работы: {{ barber.experience }} лет</p>
+        </div>
+    </div>
+
+    <h3>Отзывы ({{ comments.count }})</h3>
+
+    {% for comment in comments %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ comment.client.user.first_name }}
+                    <span class="bi bi-star-fill text-warning"> {{ comment.rating }}/5</span>
+                </h5>
+                <p class="card-text">{{ comment.text }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>Пока нет отзывов.</p>
+    {% endfor %}
+</div>
+{% endblock %}

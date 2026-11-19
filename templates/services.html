@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Услуги{% endblock %}
+
+{% block content %}
+<h2 class="text-center mb-4 mt-3 fw-bold">Наши услуги</h2>
+
+<div class="row g-4">
+    {% for service in services %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-3">
+            <h4 class="card-title fw-bold">{{ service.name }}</h4>
+            <p class="text-muted mb-2">Категория: {{ service.category }}</p>
+            <p class="fw-bold fs-5">{{ service.price }} BYN</p>
+            <p class="text-muted small">Длительность: {{ service.duration_minutes }} мин</p>
+            <a href="{% url 'new_booking' %}" class="btn btn-outline-primary mt-auto">Записаться</a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">Пока нет доступных услуг.</p>
+    {% endfor %}
+</div>
+{% endblock %}

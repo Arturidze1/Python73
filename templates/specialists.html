@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Специалисты{% endblock %}
+
+{% block content %}
+<h2 class="text-center mb-4 mt-3 fw-bold">Наши мастера</h2>
+
+<div class="row g-4">
+    {% for specialist in specialists %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 text-center p-3">
+            <div class="mb-3">
+                <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center fs-3"
+                      style="width: 60px; height: 60px;">
+                {{ specialist.user.first_name|slice:":1" }}
+                </span>
+            </div>
+            <h4 class="card-title fw-bold">{{ specialist.user.first_name }}</h4>
+            <h5 class="card-title fw-bold mb-2">Рейтинг:</h5>
+            <div class="d-flex align-items-center justify-content-center gap-1">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span class="fw-bold">{{ specialist.avg_rating|floatformat:1 }}</span>
+                <span class="text-muted">/ 5</span>
+            </div>
+            <p class="small">Опыт: {{ specialist.experience }} лет</p>
+            <a href="{% url 'info_about_barber' specialist.id %}" class="btn btn-outline-primary mb-3">Детальная информация</a>
+            <a href="{% url 'new_booking' %}" class="btn btn-outline-primary mt-auto">Записаться</a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">Специалисты пока не добавлены.</p>
+    {% endfor %}
+</div>
+{% endblock %}
